@@ -5,28 +5,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
 
-public class DisplayMessageActivity extends ActionBarActivity {
+
+public class Search extends ActionBarActivity {
+    public final static String EXTRA_SEARCH = "com.helloworld.helloword.SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Get the message from the intent
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        // Create the text view
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
-
-        // Set the text view as the activity layout
-        setContentView(textView);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Up button
+        setContentView(R.layout.activity_search);
     }
 
     @Override
@@ -42,5 +34,16 @@ public class DisplayMessageActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Perform search function
+     */
+    public void performSearch(View view) {
+        Intent intent = new Intent(this, SearchResult.class);
+        EditText editText = (EditText) findViewById(R.id.search);
+        String search = editText.getText().toString();
+        intent.putExtra(EXTRA_SEARCH, search);
+        startActivity(intent);
     }
 }
